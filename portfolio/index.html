@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Al Rinas — Aspiring Cloud Engineer</title>
+<meta name="description" content="Al Rinas — HND IT Student, Aspiring Cloud Engineer, Python Developer & Automation Enthusiast. Portfolio of cloud, Python and automation projects.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --bg:#030712;
+  --bg-soft:#070b16;
+  --blue:#2563EB;
+  --sky:#38BDF8;
+  --cyan:#06B6D4;
+  --amber:#F59E0B;
+  --card:rgba(255,255,255,0.055);
+  --card-hover:rgba(255,255,255,0.09);
+  --border:rgba(255,255,255,0.10);
+  --border-strong:rgba(255,255,255,0.18);
+  --text:#F8FAFC;
+  --text-dim:#94A3B8;
+  --text-faint:#5B6679;
+  --font-head:'Poppins',sans-serif;
+  --font-body:'Inter',sans-serif;
+  --font-code:'JetBrains Mono',monospace;
+  --container:1180px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font-body);
+  overflow-x:hidden;
+  line-height:1.6;
+}
+::selection{background:var(--blue);color:#fff;}
+a{color:inherit;text-decoration:none;}
+ul{list-style:none;}
+img{max-width:100%;display:block;}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;}
+
+::-webkit-scrollbar{width:10px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:linear-gradient(var(--blue),var(--cyan));border-radius:10px;}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+}
+
+/* ============ UTILITIES ============ */
+.container{max-width:var(--container);margin:0 auto;padding:0 24px;}
+.eyebrow{
+  font-family:var(--font-code);
+  font-size:12.5px;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--cyan);
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:14px;
+}
+.eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan);}
+.section-title{
+  font-family:var(--font-head);
+  font-weight:700;
+  font-size:clamp(28px,4vw,42px);
+  letter-spacing:-0.01em;
+  margin-bottom:16px;
+}
+.section-sub{
+  color:var(--text-dim);
+  max-width:560px;
+  font-size:15.5px;
+}
+.section-head{margin-bottom:48px;}
+section{padding:120px 0;position:relative;}
+.glass{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px;
+  backdrop-filter:blur(18px) saturate(140%);
+  -webkit-backdrop-filter:blur(18px) saturate(140%);
+}
+.grad-text{
+  background:linear-gradient(90deg,var(--sky),var(--cyan));
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:14px 26px;
+  border-radius:12px;
+  font-weight:600;
+  font-size:14.5px;
+  font-family:var(--font-body);
+  transition:transform .25s ease, box-shadow .25s ease, background .25s ease;
+  position:relative;
+  overflow:hidden;
+  white-space:nowrap;
+}
+.btn-primary{
+  background:linear-gradient(135deg,var(--blue),var(--cyan));
+  color:#fff;
+  box-shadow:0 8px 24px -8px rgba(37,99,235,0.6);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 30px -8px rgba(56,189,248,0.55);}
+.btn-ghost{
+  background:rgba(255,255,255,0.04);
+  border:1px solid var(--border-strong);
+  color:var(--text);
+}
+.btn-ghost:hover{background:rgba(255,255,255,0.09);transform:translateY(-2px);}
+.btn .ripple{
+  position:absolute;border-radius:50%;background:rgba(255,255,255,0.5);
+  transform:scale(0);animation:rippleAnim .6s linear;pointer-events:none;
+}
+@keyframes rippleAnim{to{transform:scale(3);opacity:0;}}
+
+/* ============ LOADER ============ */
+#loader{
+  position:fixed;inset:0;z-index:9999;
+  background:var(--bg);
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:18px;
+  transition:opacity .6s ease, visibility .6s ease;
+}
+#loader.hide{opacity:0;visibility:hidden;}
+.loader-logo{
+  font-family:var(--font-code);
+  font-size:14px;color:var(--text-dim);
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+}
+.loader-bar-track{width:200px;height:3px;background:rgba(255,255,255,0.08);border-radius:4px;overflow:hidden;}
+.loader-bar{height:100%;width:0%;background:linear-gradient(90deg,var(--blue),var(--cyan));border-radius:4px;animation:loadBar 1.1s ease forwards;}
+@keyframes loadBar{to{width:100%;}}
+
+/* ============ SCROLL PROGRESS ============ */
+#scroll-progress{
+  position:fixed;top:0;left:0;height:3px;
+  background:linear-gradient(90deg,var(--blue),var(--cyan));
+  z-index:1001;width:0%;transition:width .1s ease;
+}
+
+/* ============ BACKGROUND FX ============ */
+.bg-fx{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;}
+.blob{
+  position:absolute;border-radius:50%;filter:blur(80px);opacity:0.35;
+  animation:float 18s ease-in-out infinite;
+}
+.blob1{width:480px;height:480px;background:var(--blue);top:-150px;left:-120px;animation-delay:0s;}
+.blob2{width:420px;height:420px;background:var(--cyan);top:40%;right:-160px;animation-delay:4s;}
+.blob3{width:380px;height:380px;background:#1e40af;bottom:-180px;left:30%;animation-delay:8s;}
+@keyframes float{
+  0%,100%{transform:translate(0,0) scale(1);}
+  33%{transform:translate(40px,-30px) scale(1.1);}
+  66%{transform:translate(-30px,30px) scale(0.95);}
+}
+.grid-overlay{
+  position:absolute;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px);
+  background-size:48px 48px;
+  mask-image:radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+}
+#spotlight{
+  position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(600px circle at var(--mx,50%) var(--my,50%), rgba(56,189,248,0.06), transparent 60%);
+  transition:background .1s ease;
+}
+
+/* ============ NAVBAR ============ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  padding:22px 0;
+  transition:padding .35s ease, background .35s ease, border-color .35s ease;
+}
+nav .nav-inner{
+  max-width:var(--container);margin:0 auto;padding:0 24px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+nav.scrolled{
+  padding:12px 0;
+  background:rgba(3,7,18,0.7);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border);
+}
+.logo{
+  font-family:var(--font-head);font-weight:700;font-size:19px;
+  display:flex;align-items:center;gap:10px;
+}
+.logo-mark{
+  width:34px;height:34px;border-radius:10px;
+  background:linear-gradient(135deg,var(--blue),var(--cyan));
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-code);font-size:14px;font-weight:600;color:#fff;
+  box-shadow:0 4px 16px -4px rgba(56,189,248,0.6);
+}
+.nav-links{display:flex;align-items:center;gap:6px;}
+.nav-links a{
+  font-size:14px;font-weight:500;color:var(--text-dim);
+  padding:9px 16px;border-radius:9px;transition:color .2s, background .2s;
+  position:relative;
+}
+.nav-links a:hover{color:var(--text);background:rgba(255,255,255,0.06);}
+.nav-links a.active{color:var(--text);background:rgba(255,255,255,0.08);}
+.nav-cta{display:flex;align-items:center;gap:12px;}
+.nav-cta .btn{padding:10px 18px;font-size:13.5px;}
+.menu-toggle{display:none;font-size:22px;background:none;color:var(--text);}
+
+@media (max-width:880px){
+  .nav-links{
+    position:fixed;top:0;right:0;height:100vh;width:min(78vw,320px);
+    background:rgba(5,9,20,0.97);backdrop-filter:blur(20px);
+    flex-direction:column;align-items:flex-start;
+    padding:100px 28px 28px;gap:6px;
+    border-left:1px solid var(--border);
+    transform:translateX(100%);transition:transform .4s ease;
+  }
+  .nav-links.open{transform:translateX(0);}
+  .nav-links a{width:100%;padding:13px 14px;font-size:15.5px;}
+  .menu-toggle{display:block;}
+  .nav-cta .btn-ghost{display:none;}
+}
+
+/* ============ HERO ============ */
+#home{
+  min-height:100vh;display:flex;align-items:center;
+  padding-top:120px;padding-bottom:80px;
+}
+.hero-grid{
+  display:grid;grid-template-columns:1.1fr 0.9fr;gap:60px;align-items:center;
+}
+@media (max-width:960px){.hero-grid{grid-template-columns:1fr;gap:50px;}}
+.hero-hi{font-family:var(--font-code);color:var(--text-dim);font-size:16px;margin-bottom:6px;}
+.hero-name{
+  font-family:var(--font-head);font-weight:800;
+  font-size:clamp(40px,6.4vw,72px);line-height:1.04;letter-spacing:-0.02em;
+  margin-bottom:18px;
+}
+.hero-role-line{
+  display:flex;align-items:center;gap:10px;
+  font-family:var(--font-code);font-size:clamp(16px,2.1vw,21px);
+  color:var(--sky);margin-bottom:22px;min-height:30px;
+}
+.cursor-blink{display:inline-block;width:2px;height:1.1em;background:var(--cyan);animation:blink 0.9s steps(1) infinite;}
+@keyframes blink{50%{opacity:0;}}
+.hero-desc{color:var(--text-dim);max-width:480px;font-size:16px;margin-bottom:32px;}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:44px;}
+.hero-stats{display:flex;gap:36px;flex-wrap:wrap;}
+.hero-stat b{
+  font-family:var(--font-head);font-size:26px;font-weight:700;display:block;
+  background:linear-gradient(90deg,var(--sky),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero-stat span{font-size:12.5px;color:var(--text-faint);text-transform:uppercase;letter-spacing:0.05em;}
+
+/* Terminal — signature element */
+.terminal{
+  border-radius:16px;overflow:hidden;
+  background:rgba(8,12,24,0.75);
+  border:1px solid var(--border-strong);
+  box-shadow:0 30px 80px -20px rgba(0,0,0,0.6), 0 0 0 1px rgba(56,189,248,0.06);
+  backdrop-filter:blur(20px);
+  font-family:var(--font-code);
+  transform:perspective(1000px) rotateY(-4deg) rotateX(2deg);
+  transition:transform .4s ease;
+}
+.terminal:hover{transform:perspective(1000px) rotateY(-1deg) rotateX(0.5deg);}
+.terminal-bar{
+  display:flex;align-items:center;gap:8px;
+  padding:13px 16px;background:rgba(255,255,255,0.04);
+  border-bottom:1px solid var(--border);
+}
+.dot{width:11px;height:11px;border-radius:50%;}
+.dot.r{background:#FF5F56;} .dot.y{background:#FFBD2E;} .dot.g{background:#27C93F;}
+.terminal-title{margin-left:8px;font-size:12px;color:var(--text-faint);}
+.terminal-body{padding:22px 20px;font-size:13.5px;min-height:260px;color:#C9D6E8;}
+.terminal-body .line{margin-bottom:9px;display:flex;gap:8px;flex-wrap:wrap;}
+.terminal-body .prompt{color:var(--cyan);}
+.terminal-body .path{color:var(--sky);}
+.terminal-body .out{color:var(--text-dim);}
+.terminal-body .ok{color:#34D399;}
+.terminal-body .typed::after{content:'';}
+
+/* ============ ABOUT ============ */
+.about-grid{display:grid;grid-template-columns:0.85fr 1.15fr;gap:56px;align-items:start;}
+@media (max-width:880px){.about-grid{grid-template-columns:1fr;}}
+.about-card{padding:32px;}
+.avatar-ring{
+  width:88px;height:88px;border-radius:18px;margin-bottom:20px;
+  background:linear-gradient(135deg,var(--blue),var(--cyan));
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-head);font-weight:700;font-size:30px;color:#fff;
+}
+.about-card h3{font-family:var(--font-head);font-size:19px;margin-bottom:4px;}
+.about-card .role{color:var(--sky);font-size:13px;font-family:var(--font-code);margin-bottom:18px;}
+.about-meta{display:flex;flex-direction:column;gap:10px;font-size:13.5px;color:var(--text-dim);margin-bottom:22px;}
+.about-meta li{display:flex;align-items:center;gap:10px;}
+.about-meta i{color:var(--cyan);width:16px;}
+.about-stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px;}
+.stat-box{padding:16px;border-radius:12px;background:rgba(255,255,255,0.04);border:1px solid var(--border);text-align:center;}
+.stat-box b{display:block;font-family:var(--font-head);font-size:24px;color:var(--text);}
+.stat-box span{font-size:11px;color:var(--text-faint);text-transform:uppercase;letter-spacing:.04em;}
+.about-text p{color:var(--text-dim);margin-bottom:18px;font-size:15.5px;}
+.about-text strong{color:var(--text);font-weight:600;}
+.interest-tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px;}
+.tag{
+  padding:8px 14px;border-radius:9px;font-size:13px;font-family:var(--font-code);
+  background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.25);color:var(--sky);
+}
+
+/* ============ SKILLS ============ */
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+@media (max-width:900px){.skills-grid{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:600px){.skills-grid{grid-template-columns:1fr;}}
+.skill-cat{padding:26px;transition:transform .35s ease, background .35s ease, border-color .35s ease;}
+.skill-cat:hover{transform:translateY(-6px);background:var(--card-hover);border-color:var(--border-strong);}
+.skill-cat-head{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
+.skill-cat-icon{
+  width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,rgba(37,99,235,0.25),rgba(6,182,212,0.25));
+  color:var(--sky);font-size:17px;
+}
+.skill-cat h4{font-family:var(--font-head);font-size:16.5px;}
+.skill-item{margin-bottom:14px;}
+.skill-item:last-child{margin-bottom:0;}
+.skill-item-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-size:13.5px;}
+.skill-item-top .badge{font-size:10.5px;font-family:var(--font-code);color:var(--amber);background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);padding:2px 7px;border-radius:6px;}
+.skill-bar-track{height:6px;border-radius:6px;background:rgba(255,255,255,0.07);overflow:hidden;}
+.skill-bar{height:100%;border-radius:6px;background:linear-gradient(90deg,var(--blue),var(--cyan));width:0%;transition:width 1.2s cubic-bezier(.2,.8,.2,1);}
+
+/* ============ PROJECTS ============ */
+.projects-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:26px;}
+@media (max-width:880px){.projects-grid{grid-template-columns:1fr;}}
+.project-card{
+  padding:0;overflow:hidden;
+  transform-style:preserve-3d;
+  transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+.project-card:hover{border-color:var(--border-strong);box-shadow:0 25px 60px -20px rgba(37,99,235,0.35);}
+.project-thumb{
+  height:170px;position:relative;overflow:hidden;
+  background:linear-gradient(135deg,#0a1530,#08172a);
+  display:flex;align-items:center;justify-content:center;
+  border-bottom:1px solid var(--border);
+}
+.project-thumb i{font-size:42px;color:rgba(56,189,248,0.35);}
+.project-thumb::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(120deg,transparent 30%,rgba(56,189,248,0.08) 50%,transparent 70%);
+  background-size:200% 100%;animation:shine 5s linear infinite;
+}
+@keyframes shine{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
+.project-body{padding:24px;}
+.project-body h4{font-family:var(--font-head);font-size:17.5px;margin-bottom:8px;}
+.project-body p{color:var(--text-dim);font-size:14px;margin-bottom:16px;}
+.project-stack{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px;}
+.project-stack span{
+  font-size:11px;font-family:var(--font-code);padding:4px 9px;border-radius:6px;
+  background:rgba(255,255,255,0.05);border:1px solid var(--border);color:var(--text-dim);
+}
+.project-features{margin-bottom:18px;}
+.project-features li{display:flex;gap:8px;font-size:13px;color:var(--text-dim);margin-bottom:6px;align-items:flex-start;}
+.project-features i{color:var(--cyan);font-size:11px;margin-top:4px;}
+.project-links{display:flex;gap:10px;}
+.project-links a{
+  flex:1;text-align:center;padding:10px;border-radius:9px;font-size:13px;font-weight:600;
+  display:flex;align-items:center;justify-content:center;gap:7px;
+  border:1px solid var(--border-strong);transition:background .2s,transform .2s;
+}
+.project-links a:hover{background:rgba(255,255,255,0.08);transform:translateY(-2px);}
+.project-links a.primary{background:linear-gradient(135deg,var(--blue),var(--cyan));border:none;color:#fff;}
+
+/* ============ EDUCATION / LEARNING TIMELINE ============ */
+.timeline{position:relative;max-width:760px;margin:0 auto;}
+.timeline::before{
+  content:'';position:absolute;left:19px;top:6px;bottom:6px;width:2px;
+  background:linear-gradient(180deg,var(--blue),var(--cyan),transparent);
+}
+.tl-item{position:relative;padding-left:60px;margin-bottom:36px;}
+.tl-item:last-child{margin-bottom:0;}
+.tl-dot{
+  position:absolute;left:0;top:2px;width:40px;height:40px;border-radius:50%;
+  background:var(--bg-soft);border:2px solid var(--cyan);
+  display:flex;align-items:center;justify-content:center;color:var(--sky);font-size:15px;
+  box-shadow:0 0 0 6px rgba(6,182,212,0.08);
+}
+.tl-item.done .tl-dot{background:linear-gradient(135deg,var(--blue),var(--cyan));border-color:transparent;color:#fff;}
+.tl-card{padding:20px 22px;}
+.tl-card .when{font-family:var(--font-code);font-size:11.5px;color:var(--text-faint);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;}
+.tl-card h4{font-family:var(--font-head);font-size:16px;margin-bottom:6px;}
+.tl-card p{color:var(--text-dim);font-size:13.5px;}
+
+/* ============ GOALS ============ */
+.goals-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+@media (max-width:960px){.goals-grid{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:560px){.goals-grid{grid-template-columns:1fr;}}
+.goal-card{padding:24px;text-align:left;transition:transform .3s ease,background .3s ease;}
+.goal-card:hover{transform:translateY(-5px);background:var(--card-hover);}
+.goal-card i{font-size:22px;color:var(--cyan);margin-bottom:14px;display:block;}
+.goal-card h5{font-family:var(--font-head);font-size:14.5px;margin-bottom:6px;}
+.goal-card p{font-size:12.5px;color:var(--text-faint);}
+
+/* ============ GITHUB ============ */
+.gh-card{padding:36px;display:grid;grid-template-columns:auto 1fr auto;gap:30px;align-items:center;}
+@media (max-width:780px){.gh-card{grid-template-columns:1fr;text-align:center;}}
+.gh-avatar{width:70px;height:70px;border-radius:16px;background:linear-gradient(135deg,var(--blue),var(--cyan));display:flex;align-items:center;justify-content:center;font-size:28px;color:#fff;}
+.gh-info h4{font-family:var(--font-head);font-size:18px;margin-bottom:4px;}
+.gh-info p{color:var(--text-dim);font-size:13.5px;}
+.gh-stats{display:flex;gap:28px;}
+@media (max-width:780px){.gh-stats{justify-content:center;}}
+.gh-stats div{text-align:center;}
+.gh-stats b{display:block;font-family:var(--font-head);font-size:22px;color:var(--sky);}
+.gh-stats span{font-size:11px;color:var(--text-faint);text-transform:uppercase;}
+.gh-contrib{margin-top:28px;display:grid;grid-template-columns:repeat(26,1fr);gap:3px;}
+.gh-contrib div{aspect-ratio:1;border-radius:2px;background:rgba(255,255,255,0.06);}
+
+/* ============ CONTACT ============ */
+.contact-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:40px;}
+@media (max-width:880px){.contact-grid{grid-template-columns:1fr;}}
+.contact-info-card{padding:32px;}
+.contact-item{display:flex;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid var(--border);}
+.contact-item:last-child{border-bottom:none;}
+.contact-item .ic{width:42px;height:42px;border-radius:11px;background:rgba(56,189,248,0.1);display:flex;align-items:center;justify-content:center;color:var(--sky);font-size:16px;flex-shrink:0;}
+.contact-item .lbl{font-size:11px;color:var(--text-faint);text-transform:uppercase;letter-spacing:.04em;}
+.contact-item .val{font-size:14.5px;color:var(--text);font-weight:500;word-break:break-word;}
+.contact-form{padding:32px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+@media (max-width:560px){.form-row{grid-template-columns:1fr;}}
+.field{margin-bottom:16px;}
+.field label{display:block;font-size:12.5px;color:var(--text-dim);margin-bottom:7px;font-family:var(--font-code);}
+.field input,.field textarea{
+  width:100%;padding:13px 15px;border-radius:10px;
+  background:rgba(255,255,255,0.04);border:1px solid var(--border);
+  color:var(--text);font-family:var(--font-body);font-size:14px;
+  transition:border-color .2s, background .2s;
+}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--cyan);background:rgba(255,255,255,0.06);}
+.field textarea{resize:vertical;min-height:110px;}
+.field .err{color:#F87171;font-size:12px;margin-top:6px;display:none;}
+.field.invalid input,.field.invalid textarea{border-color:#F87171;}
+.field.invalid .err{display:block;}
+.form-status{margin-top:14px;font-size:13.5px;color:var(--text-dim);min-height:20px;}
+.form-status.success{color:#34D399;}
+
+/* ============ FOOTER ============ */
+footer{padding:50px 0 36px;border-top:1px solid var(--border);}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;}
+.footer-social{display:flex;gap:12px;}
+.footer-social a{
+  width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,0.04);
+  border:1px solid var(--border);display:flex;align-items:center;justify-content:center;
+  color:var(--text-dim);transition:color .2s, border-color .2s, transform .2s;
+}
+.footer-social a:hover{color:var(--sky);border-color:var(--sky);transform:translateY(-3px);}
+.footer-copy{font-size:13px;color:var(--text-faint);}
+
+/* ============ REVEAL ANIM ============ */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.2,.7,.3,1), transform .7s cubic-bezier(.2,.7,.3,1);}
+.reveal.in{opacity:1;transform:translateY(0);}
+.reveal.delay-1{transition-delay:.08s;}
+.reveal.delay-2{transition-delay:.16s;}
+.reveal.delay-3{transition-delay:.24s;}
+.reveal.delay-4{transition-delay:.32s;}
+
+/* Back to top */
+#toTop{
+  position:fixed;bottom:28px;right:28px;z-index:500;
+  width:46px;height:46px;border-radius:50%;
+  background:linear-gradient(135deg,var(--blue),var(--cyan));color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:16px;
+  opacity:0;transform:translateY(10px);transition:opacity .3s,transform .3s;
+  box-shadow:0 10px 26px -8px rgba(56,189,248,0.5);
+}
+#toTop.show{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<div id="loader">
+  <div class="loader-logo">
+    <i class="fa-solid fa-cloud" style="font-size:26px;color:var(--sky);"></i>
+    <span>booting al-rinas.dev …</span>
+    <div class="loader-bar-track"><div class="loader-bar"></div></div>
+  </div>
+</div>
+
+<div id="scroll-progress"></div>
+<div id="spotlight"></div>
+<div class="bg-fx">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="blob blob3"></div>
+  <div class="grid-overlay"></div>
+</div>
+
+<!-- ============ NAVBAR ============ -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#home" class="logo"><span class="logo-mark">AR</span> Al Rinas</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home" class="active">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#learning">Learning</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="#" class="btn btn-ghost" id="resumeBtn"><i class="fa-solid fa-download"></i> Resume</a>
+      <button class="menu-toggle" id="menuToggle"><i class="fa-solid fa-bars"></i></button>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section id="home">
+  <div class="container hero-grid">
+    <div>
+      <div class="hero-hi reveal in">Hi, I'm</div>
+      <h1 class="hero-name reveal in">AL RINAS</h1>
+      <div class="hero-role-line reveal in delay-1">
+        <span id="typedRole">HND IT Student</span><span class="cursor-blink"></span>
+      </div>
+      <p class="hero-desc reveal in delay-2">
+        Currently pursuing a Higher National Diploma in Information Technology, building hands-on projects in Python, automation, and cloud fundamentals — one step at a time, toward a career as a Cloud Engineer.
+      </p>
+      <div class="hero-actions reveal in delay-3">
+        <a href="#projects" class="btn btn-primary" data-ripple><i class="fa-solid fa-diagram-project"></i> View Projects</a>
+        <a href="#" class="btn btn-ghost" data-ripple id="resumeBtn2"><i class="fa-solid fa-file-arrow-down"></i> Download Resume</a>
+        <a href="#contact" class="btn btn-ghost" data-ripple><i class="fa-solid fa-paper-plane"></i> Contact Me</a>
+      </div>
+      <div class="hero-stats reveal in delay-4">
+        <div class="hero-stat"><b data-count="12">0</b><span>Projects</span></div>
+        <div class="hero-stat"><b data-count="400">0</b><span>Learning Hours</span></div>
+        <div class="hero-stat"><b data-count="9">0</b><span>Technologies</span></div>
+      </div>
+    </div>
+
+    <div class="reveal in delay-2">
+      <div class="terminal">
+        <div class="terminal-bar">
+          <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+          <span class="terminal-title">rinas@cloud-journey: ~</span>
+        </div>
+        <div class="terminal-body" id="termBody"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="about">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">About</div>
+      <h2 class="section-title">A student building toward <span class="grad-text">the cloud.</span></h2>
+      <p class="section-sub">No professional title yet — just consistent, hands-on learning and a clear direction.</p>
+    </div>
+
+    <div class="about-grid">
+      <div class="glass about-card reveal delay-1">
+        <div class="avatar-ring">AR</div>
+        <h3>Al Rinas</h3>
+        <div class="role">Aspiring Cloud Engineer</div>
+        <ul class="about-meta">
+          <li><i class="fa-solid fa-graduation-cap"></i> HND in Information Technology</li>
+          <li><i class="fa-solid fa-location-dot"></i> Eastern Province, Sri Lanka</li>
+          <li><i class="fa-solid fa-code"></i> Python · Automation</li>
+          <li><i class="fa-solid fa-cloud"></i> AWS &amp; Azure — Learning</li>
+        </ul>
+        <div class="about-stats-grid">
+          <div class="stat-box"><b data-count="12">0</b><span>Projects</span></div>
+          <div class="stat-box"><b data-count="400">0</b><span>Learn Hrs</span></div>
+          <div class="stat-box"><b data-count="9">0</b><span>Tech Used</span></div>
+          <div class="stat-box"><b data-count="60">0</b><span>GH Commits</span></div>
+        </div>
+      </div>
+
+      <div class="reveal delay-2">
+        <div class="about-text">
+          <p>I'm currently pursuing a <strong>Higher National Diploma (HND) in Information Technology</strong>, with a strong interest in <strong>cloud computing, Python programming, automation, and software development.</strong></p>
+          <p>I enjoy building practical projects, solving technical problems through experimentation, and continuously learning modern technologies rather than just reading about them. Every script, repo, and broken deployment teaches me something I couldn't have learned from a tutorial alone.</p>
+          <p>My goal is to become a <strong>Cloud Engineer</strong> — contributing to real, scalable infrastructure while sharpening the fundamentals: Linux, networking, containers, and Infrastructure as Code.</p>
+        </div>
+        <div class="interest-tags">
+          <span class="tag">#CloudJourney</span>
+          <span class="tag">#PythonAutomation</span>
+          <span class="tag">#ContinuousLearning</span>
+          <span class="tag">#GitHubActivity</span>
+          <span class="tag">#BuildInPublic</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SKILLS ============ -->
+<section id="skills">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Skills</div>
+      <h2 class="section-title">What I'm <span class="grad-text">working with.</span></h2>
+      <p class="section-sub">A mix of skills I use confidently, and ones I'm actively learning right now.</p>
+    </div>
+
+    <div class="skills-grid">
+      <div class="glass skill-cat reveal delay-1">
+        <div class="skill-cat-head"><div class="skill-cat-icon"><i class="fa-solid fa-code"></i></div><h4>Programming</h4></div>
+        <div class="skill-item"><div class="skill-item-top"><span>Python</span></div><div class="skill-bar-track"><div class="skill-bar" data-level="80"></div></div></div>
+        <div class="skill-item"><div class="skill-item-top"><span>HTML</span></div><div class="skill-bar-track"><div class="skill-bar" data-level="75"></div></div></div>
+        <div class="skill-item"><div class="skill-item-top"><span>CSS</span></div><div class="skill-bar-track"><div class="skill-bar" data-level="70"></div></div></div>
+        <div class="skill-item"><div class="skill-item-top"><span>JavaScript</span><span class="badge">Learning</span></div><div class="skill-bar-track"><div class="skill-bar" data-level="40"></div></div></div>
+      </div>
+
+      <div class="glass skill-cat reveal delay-2">
+        <div class="skill-cat-head"><div class="skill-cat-icon"><i class="fa-solid fa-cloud"></i></div><h4>Cloud</h4></div>
+        <div class="skill-item"><div class="skill-item-top"><span>AWS</span><span class="badge">Learning</span></div><div class="skill-bar-track"><div class="skill-bar" data-level="45"></div></div></div>
+        <div class="skill-item"><div class="skill-item-top"><span>Microsoft Azure</span><span class="badge">Learning</span></div><div class="skill-bar-track"><div class="skill-bar" data-level="40"></div></div></div>
+        <div class="skill-item"><div class="skill-item-top"><span>Cloud Fundamentals</span></div><div class="skill-bar-track"><div class="skill-bar" data-level="55"></div></div></div>
+      </div>
+
+      <div class="glass skill-cat reveal delay-3">
+        <div class="skill-cat-head"><div class="skill-cat-icon"><i class="fa-solid fa-toolbox"></i></div><h4>Tools</h4></div>
+        <div class="skill-item"><div class="skill-item-top"><span>Git</span></div><div class="skill-bar-track"><div class="skill-bar" data-level="75"></div></div></div>
+        <div class="skill-item"><div class="skill-item-top"><span>GitHub</span></div><div class="skill-bar-track"><div class="skill-bar" data-level="78"></div></div></div>
+        <div class="skill-item"><div class="skill-item-top"><span>VS Code</span></div><div class="skill-bar-track"><div class="skill-bar" data-level="85"></div></div></div>
+        <div class="skill-item"><div class="skill-item-top"><span>Docker</span><span class="badge">Learning</span></div><div class="skill-bar-track"><div class="skill-bar" data-level="30"></div></div></div>
+      </div>
+
+      <div class="glass skill-cat reveal delay-1">
+        <div class="skill-cat-head"><div class="skill-cat-icon"><i class="fa-solid fa-desktop"></i></div><h4>Operating Systems</h4></div>
+        <div class="skill-item"><div class="skill-item-top"><span>Windows</span></div><div class="skill-bar-track"><div class="skill-bar" data-level="85"></div></div></div>
+        <div class="skill-item"><div class="skill-item-top"><span>Linux</span></div><div class="skill-bar-track"><div class="skill-bar" data-level="60"></div></div></div>
+      </div>
+
+      <div class="glass skill-cat reveal delay-2">
+        <div class="skill-cat-head"><div class="skill-cat-icon"><i class="fa-solid fa-robot"></i></div><h4>Other</h4></div>
+        <div class="skill-item"><div class="skill-item-top"><span>Automation</span></div><div class="skill-bar-track"><div class="skill-bar" data-level="70"></div></div></div>
+        <div class="skill-item"><div class="skill-item-top"><span>Networking Fundamentals</span></div><div class="skill-bar-track"><div class="skill-bar" data-level="50"></div></div></div>
+        <div class="skill-item"><div class="skill-item-top"><span>AI Tools</span></div><div class="skill-bar-track"><div class="skill-bar" data-level="70"></div></div></div>
+        <div class="skill-item"><div class="skill-item-top"><span>Problem Solving</span></div><div class="skill-bar-track"><div class="skill-bar" data-level="80"></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROJECTS ============ -->
+<section id="projects">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Projects</div>
+      <h2 class="section-title">Things I've <span class="grad-text">actually built.</span></h2>
+      <p class="section-sub">Practical scripts and tools — built to solve real problems, not just to fill a portfolio.</p>
+    </div>
+
+    <div class="projects-grid">
+
+      <div class="glass project-card reveal delay-1" data-tilt>
+        <div class="project-thumb"><i class="fa-solid fa-folder-tree"></i></div>
+        <div class="project-body">
+          <h4>Advanced File Organizer</h4>
+          <p>A Python script that automatically sorts messy Downloads/Desktop folders into categorized directories by file type and date.</p>
+          <div class="project-stack"><span>Python</span><span>os</span><span>shutil</span><span>pathlib</span></div>
+          <ul class="project-features">
+            <li><i class="fa-solid fa-check"></i> Auto-sorts files by type &amp; extension</li>
+            <li><i class="fa-solid fa-check"></i> Configurable rules via simple config</li>
+            <li><i class="fa-solid fa-check"></i> Safe dry-run mode before moving files</li>
+          </ul>
+          <div class="project-links">
+            <a href="https://github.com/najathkwt35-cloud" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a>
+            <a href="#" class="primary"><i class="fa-solid fa-play"></i> Demo</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass project-card reveal delay-2" data-tilt>
+        <div class="project-thumb"><i class="fa-solid fa-clone"></i></div>
+        <div class="project-body">
+          <h4>Duplicate File Finder</h4>
+          <p>Scans directories recursively, hashes file contents, and flags duplicates to help free up storage space safely.</p>
+          <div class="project-stack"><span>Python</span><span>hashlib</span><span>CLI</span></div>
+          <ul class="project-features">
+            <li><i class="fa-solid fa-check"></i> Content-based hashing (not just filenames)</li>
+            <li><i class="fa-solid fa-check"></i> Interactive review before deletion</li>
+            <li><i class="fa-solid fa-check"></i> Works across nested folders</li>
+          </ul>
+          <div class="project-links">
+            <a href="https://github.com/najathkwt35-cloud" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a>
+            <a href="#" class="primary"><i class="fa-solid fa-play"></i> Demo</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass project-card reveal delay-3" data-tilt>
+        <div class="project-thumb"><i class="fa-solid fa-gears"></i></div>
+        <div class="project-body">
+          <h4>Python Automation Scripts</h4>
+          <p>A growing collection of small automation tools for repetitive everyday tasks — renaming, backups, and report generation.</p>
+          <div class="project-stack"><span>Python</span><span>Automation</span><span>Scripting</span></div>
+          <ul class="project-features">
+            <li><i class="fa-solid fa-check"></i> Bulk rename &amp; backup utilities</li>
+            <li><i class="fa-solid fa-check"></i> Scheduled task support</li>
+            <li><i class="fa-solid fa-check"></i> Reusable, modular functions</li>
+          </ul>
+          <div class="project-links">
+            <a href="https://github.com/najathkwt35-cloud" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a>
+            <a href="#" class="primary"><i class="fa-solid fa-play"></i> Demo</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass project-card reveal delay-4" data-tilt>
+        <div class="project-thumb"><i class="fa-brands fa-github"></i></div>
+        <div class="project-body">
+          <h4>GitHub Profile README</h4>
+          <p>A fully redesigned GitHub profile with badges, stats, and a structured 12-month cloud engineering roadmap.</p>
+          <div class="project-stack"><span>Markdown</span><span>GitHub Actions</span><span>Shields.io</span></div>
+          <ul class="project-features">
+            <li><i class="fa-solid fa-check"></i> Live contribution &amp; language stats</li>
+            <li><i class="fa-solid fa-check"></i> Clear roadmap section for recruiters</li>
+            <li><i class="fa-solid fa-check"></i> Clean, scannable structure</li>
+          </ul>
+          <div class="project-links">
+            <a href="https://github.com/najathkwt35-cloud" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a>
+            <a href="#" class="primary"><i class="fa-solid fa-play"></i> Demo</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass project-card reveal delay-1" data-tilt>
+        <div class="project-thumb"><i class="fa-solid fa-hotel"></i></div>
+        <div class="project-body">
+          <h4>StayLux — Hotel Booking App</h4>
+          <p>A Next.js hotel booking web app with room listings, booking flow, and a deployed live preview on Vercel.</p>
+          <div class="project-stack"><span>Next.js</span><span>React</span><span>Vercel</span></div>
+          <ul class="project-features">
+            <li><i class="fa-solid fa-check"></i> Branch-based Git workflow</li>
+            <li><i class="fa-solid fa-check"></i> Responsive booking interface</li>
+            <li><i class="fa-solid fa-check"></i> Continuous deployment via Vercel</li>
+          </ul>
+          <div class="project-links">
+            <a href="https://github.com/najathkwt35-cloud" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a>
+            <a href="#" class="primary"><i class="fa-solid fa-play"></i> Demo</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass project-card reveal delay-2" data-tilt>
+        <div class="project-thumb"><i class="fa-solid fa-globe"></i></div>
+        <div class="project-body">
+          <h4>Portfolio Website</h4>
+          <p>This site — a glassmorphism, dark-themed personal portfolio built to present my cloud journey to recruiters.</p>
+          <div class="project-stack"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+          <ul class="project-features">
+            <li><i class="fa-solid fa-check"></i> Fully responsive, dark glass UI</li>
+            <li><i class="fa-solid fa-check"></i> Smooth scroll &amp; reveal animations</li>
+            <li><i class="fa-solid fa-check"></i> Built and designed from scratch</li>
+          </ul>
+          <div class="project-links">
+            <a href="https://github.com/najathkwt35-cloud" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a>
+            <a href="#home" class="primary"><i class="fa-solid fa-play"></i> You're here</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ EDUCATION ============ -->
+<section id="education">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Education</div>
+      <h2 class="section-title">Academic <span class="grad-text">foundation.</span></h2>
+    </div>
+    <div class="timeline">
+      <div class="tl-item done reveal delay-1">
+        <div class="tl-dot"><i class="fa-solid fa-graduation-cap"></i></div>
+        <div class="glass tl-card">
+          <div class="when">Current</div>
+          <h4>Higher National Diploma (HND) — Information Technology</h4>
+          <p>Currently enrolled and actively studying, building foundational and applied IT skills alongside independent cloud &amp; Python projects.</p>
+        </div>
+      </div>
+      <div class="tl-item reveal delay-2">
+        <div class="tl-dot"><i class="fa-solid fa-rocket"></i></div>
+        <div class="glass tl-card">
+          <div class="when">Next</div>
+          <h4>Cloud Certification Track</h4>
+          <p>Planning to pursue AWS and Azure foundational certifications to formalize hands-on cloud learning.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LEARNING JOURNEY ============ -->
+<section id="learning">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Learning Journey</div>
+      <h2 class="section-title">Step by step, toward <span class="grad-text">the cloud.</span></h2>
+      <p class="section-sub">Each stage built on the last — this is the order I actually learned things in.</p>
+    </div>
+    <div class="timeline">
+      <div class="tl-item done reveal delay-1"><div class="tl-dot"><i class="fa-brands fa-python"></i></div><div class="glass tl-card"><div class="when">Stage 01 · Done</div><h4>Python</h4><p>Core programming fundamentals, scripting, and automation logic.</p></div></div>
+      <div class="tl-item done reveal delay-1"><div class="tl-dot"><i class="fa-solid fa-code-branch"></i></div><div class="glass tl-card"><div class="when">Stage 02 · Done</div><h4>Git &amp; GitHub</h4><p>Version control, branching, and collaborative workflows.</p></div></div>
+      <div class="tl-item reveal delay-2"><div class="tl-dot"><i class="fa-solid fa-cloud"></i></div><div class="glass tl-card"><div class="when">Stage 03 · In Progress</div><h4>Cloud Computing</h4><p>Core cloud concepts — compute, storage, networking, IAM.</p></div></div>
+      <div class="tl-item reveal delay-2"><div class="tl-dot"><i class="fa-brands fa-aws"></i></div><div class="glass tl-card"><div class="when">Stage 04 · In Progress</div><h4>AWS</h4><p>Hands-on with EC2, S3, and foundational AWS services.</p></div></div>
+      <div class="tl-item reveal delay-3"><div class="tl-dot"><i class="fa-brands fa-microsoft"></i></div><div class="glass tl-card"><div class="when">Stage 05 · Upcoming</div><h4>Azure</h4><p>Exploring Azure's core services and certification path.</p></div></div>
+      <div class="tl-item reveal delay-3"><div class="tl-dot"><i class="fa-brands fa-docker"></i></div><div class="glass tl-card"><div class="when">Stage 06 · Upcoming</div><h4>Docker</h4><p>Containerization fundamentals for portable, consistent deployments.</p></div></div>
+      <div class="tl-item reveal delay-4"><div class="tl-dot"><i class="fa-solid fa-infinity"></i></div><div class="glass tl-card"><div class="when">Stage 07 · Upcoming</div><h4>DevOps</h4><p>CI/CD pipelines and infrastructure automation practices.</p></div></div>
+      <div class="tl-item reveal delay-4"><div class="tl-dot"><i class="fa-solid fa-dharmachakra"></i></div><div class="glass tl-card"><div class="when">Stage 08 · Future</div><h4>Kubernetes</h4><p>Orchestration at scale — the next big milestone.</p></div></div>
+      <div class="tl-item reveal delay-4"><div class="tl-dot"><i class="fa-solid fa-flag-checkered"></i></div><div class="glass tl-card"><div class="when">Goal</div><h4>Cloud Engineer</h4><p>The destination this entire journey is building toward.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GOALS ============ -->
+<section id="goals">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Goals</div>
+      <h2 class="section-title">What I'm working <span class="grad-text">toward.</span></h2>
+    </div>
+    <div class="goals-grid">
+      <div class="glass goal-card reveal delay-1"><i class="fa-solid fa-cloud"></i><h5>Become a Cloud Engineer</h5><p>The long-term destination of this journey.</p></div>
+      <div class="glass goal-card reveal delay-2"><i class="fa-solid fa-certificate"></i><h5>Earn AWS Certifications</h5><p>Starting with AWS Cloud Practitioner.</p></div>
+      <div class="glass goal-card reveal delay-3"><i class="fa-brands fa-python"></i><h5>Master Python</h5><p>From scripting to building real tools.</p></div>
+      <div class="glass goal-card reveal delay-4"><i class="fa-solid fa-dharmachakra"></i><h5>Learn Kubernetes</h5><p>Understand orchestration at scale.</p></div>
+      <div class="glass goal-card reveal delay-1"><i class="fa-solid fa-hammer"></i><h5>Build Real Projects</h5><p>Practical tools over theory alone.</p></div>
+      <div class="glass goal-card reveal delay-2"><i class="fa-brands fa-git-alt"></i><h5>Contribute to Open Source</h5><p>Learn by collaborating with others.</p></div>
+      <div class="glass goal-card reveal delay-3"><i class="fa-solid fa-book-open"></i><h5>Continuous Learning</h5><p>Treat every project as a lesson.</p></div>
+      <div class="glass goal-card reveal delay-4"><i class="fa-solid fa-network-wired"></i><h5>Strengthen Networking</h5><p>Solid fundamentals behind every cloud skill.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GITHUB ============ -->
+<section id="github">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">GitHub Activity</div>
+      <h2 class="section-title">Building <span class="grad-text">in public.</span></h2>
+    </div>
+    <div class="glass gh-card reveal delay-1">
+      <div class="gh-avatar"><i class="fa-brands fa-github"></i></div>
+      <div class="gh-info">
+        <h4>najathkwt35-cloud</h4>
+        <p>Active repositories in Python automation, web apps, and cloud-roadmap documentation.</p>
+      </div>
+      <div class="gh-stats">
+        <div><b data-count="12">0</b><span>Repos</span></div>
+        <div><b data-count="60">0</b><span>Commits</span></div>
+        <div><b data-count="3">0</b><span>Languages</span></div>
+      </div>
+    </div>
+    <div class="glass reveal delay-2" style="padding:28px;margin-top:20px;">
+      <div class="gh-contrib" id="contribGrid"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Contact</div>
+      <h2 class="section-title">Let's <span class="grad-text">connect.</span></h2>
+      <p class="section-sub">Open to internships, entry-level cloud roles, and collaboration opportunities.</p>
+    </div>
+
+    <div class="contact-grid">
+      <div class="glass contact-info-card reveal delay-1">
+        <div class="contact-item"><div class="ic"><i class="fa-solid fa-envelope"></i></div><div><div class="lbl">Email</div><div class="val">najathkwt35@gmail.com</div></div></div>
+        <div class="contact-item"><div class="ic"><i class="fa-brands fa-github"></i></div><div><div class="lbl">GitHub</div><div class="val">github.com/najathkwt35-cloud</div></div></div>
+        <div class="contact-item"><div class="ic"><i class="fa-brands fa-linkedin"></i></div><div><div class="lbl">LinkedIn</div><div class="val">linkedin.com/in/rinas-al-b94b793b4</div></div></div>
+        <div class="contact-item"><div class="ic"><i class="fa-solid fa-location-dot"></i></div><div><div class="lbl">Location</div><div class="val">Eastern Province, Sri Lanka</div></div></div>
+        <div class="contact-item"><div class="ic"><i class="fa-brands fa-whatsapp"></i></div><div><div class="lbl">WhatsApp</div><div class="val">+94 710836726</div></div></div>
+      </div>
+
+      <form class="glass contact-form reveal delay-2" id="contactForm" novalidate>
+        <div class="form-row">
+          <div class="field" id="f-name">
+            <label>Name</label>
+            <input type="text" name="name" placeholder="Your name">
+            <div class="err">Please enter your name.</div>
+          </div>
+          <div class="field" id="f-email">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="you@example.com">
+            <div class="err">Please enter a valid email.</div>
+          </div>
+        </div>
+        <div class="field" id="f-subject">
+          <label>Subject</label>
+          <input type="text" name="subject" placeholder="What's this about?">
+          <div class="err">Please add a subject.</div>
+        </div>
+        <div class="field" id="f-message">
+          <label>Message</label>
+          <textarea name="message" placeholder="Write your message..."></textarea>
+          <div class="err">Please enter a message.</div>
+        </div>
+        <button type="submit" class="btn btn-primary" data-ripple style="width:100%;justify-content:center;"><i class="fa-solid fa-paper-plane"></i> Send Message</button>
+        <div class="form-status" id="formStatus"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container footer-inner">
+    <div class="footer-copy">© 2026 Al Rinas. Designed and Developed by Al Rinas.</div>
+    <div class="footer-social">
+      <a href="https://github.com/najathkwt35-cloud" target="_blank"><i class="fa-brands fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/rinas-al-b94b793b4/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+      <a href="mailto:najathkwt35@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+      <a href="https://wa.me/94710836726" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+    </div>
+  </div>
+</footer>
+
+<button id="toTop"><i class="fa-solid fa-arrow-up"></i></button>
+
+<script>
+/* ===== LOADER ===== */
+window.addEventListener('load', ()=>{
+  setTimeout(()=>{ document.getElementById('loader').classList.add('hide'); }, 700);
+});
+
+/* ===== SCROLL PROGRESS + NAVBAR ===== */
+const navbar = document.getElementById('navbar');
+const progress = document.getElementById('scroll-progress');
+const toTop = document.getElementById('toTop');
+window.addEventListener('scroll', ()=>{
+  const h = document.documentElement;
+  const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+  progress.style.width = scrolled + '%';
+  if(h.scrollTop > 40){ navbar.classList.add('scrolled'); } else { navbar.classList.remove('scrolled'); }
+  if(h.scrollTop > 500){ toTop.classList.add('show'); } else { toTop.classList.remove('show'); }
+});
+toTop.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
+
+/* ===== MOBILE MENU ===== */
+const menuToggle = document.getElementById('menuToggle');
+const navLinks = document.getElementById('navLinks');
+menuToggle.addEventListener('click', ()=>{
+  navLinks.classList.toggle('open');
+  menuToggle.innerHTML = navLinks.classList.contains('open') ? '<i class="fa-solid fa-xmark"></i>' : '<i class="fa-solid fa-bars"></i>';
+});
+document.querySelectorAll('.nav-links a').forEach(a=>{
+  a.addEventListener('click', ()=>{
+    navLinks.classList.remove('open');
+    menuToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+    document.querySelectorAll('.nav-links a').forEach(l=>l.classList.remove('active'));
+    a.classList.add('active');
+  });
+});
+
+/* ===== ACTIVE LINK ON SCROLL ===== */
+const sections = document.querySelectorAll('section');
+const navAnchors = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', ()=>{
+  let current = '';
+  sections.forEach(sec=>{
+    const rect = sec.getBoundingClientRect();
+    if(rect.top <= 120 && rect.bottom >= 120) current = sec.id;
+  });
+  navAnchors.forEach(a=>{
+    a.classList.toggle('active', a.getAttribute('href') === '#'+current);
+  });
+});
+
+/* ===== MOUSE SPOTLIGHT ===== */
+const spotlight = document.getElementById('spotlight');
+window.addEventListener('mousemove', (e)=>{
+  spotlight.style.setProperty('--mx', e.clientX+'px');
+  spotlight.style.setProperty('--my', e.clientY+'px');
+});
+
+/* ===== TYPING ANIMATION (HERO ROLE) ===== */
+const roles = ['HND IT Student','Aspiring Cloud Engineer','Python Developer','Automation Enthusiast'];
+const typedEl = document.getElementById('typedRole');
+let ri=0, ci=0, deleting=false;
+function typeLoop(){
+  const word = roles[ri];
+  if(!deleting){
+    ci++;
+    typedEl.textContent = word.slice(0,ci);
+    if(ci === word.length){ deleting = true; setTimeout(typeLoop, 1500); return; }
+  } else {
+    ci--;
+    typedEl.textContent = word.slice(0,ci);
+    if(ci === 0){ deleting = false; ri = (ri+1)%roles.length; }
+  }
+  setTimeout(typeLoop, deleting ? 35 : 65);
+}
+typeLoop();
+
+/* ===== TERMINAL BOOT SEQUENCE ===== */
+const termLines = [
+  {p:'rinas@cloud-journey', path:'~', cmd:'whoami'},
+  {out:'al-rinas — HND IT Student'},
+  {p:'rinas@cloud-journey', path:'~', cmd:'cat goals.txt'},
+  {out:'> Become a Cloud Engineer'},
+  {out:'> Master Python + Automation'},
+  {out:'> Learn AWS, Azure, Docker, K8s'},
+  {p:'rinas@cloud-journey', path:'~', cmd:'./check_status.sh'},
+  {out:'Learning... [##########] 100%', ok:true},
+  {out:'Status: building real projects', ok:true},
+  {p:'rinas@cloud-journey', path:'~', cmd:'_'}
+];
+const termBody = document.getElementById('termBody');
+let lineIdx = 0;
+function typeTerminal(){
+  if(lineIdx >= termLines.length){ return; }
+  const item = termLines[lineIdx];
+  const lineEl = document.createElement('div');
+  lineEl.className = 'line';
+  termBody.appendChild(lineEl);
+
+  if(item.cmd !== undefined){
+    let text = '';
+    const full = item.cmd;
+    const promptSpan = document.createElement('span');
+    promptSpan.className = 'prompt'; promptSpan.textContent = item.p + ':';
+    const pathSpan = document.createElement('span');
+    pathSpan.className = 'path'; pathSpan.textContent = item.path + '$';
+    const cmdSpan = document.createElement('span');
+    cmdSpan.className = 'typed';
+    lineEl.appendChild(promptSpan); lineEl.appendChild(pathSpan); lineEl.appendChild(cmdSpan);
+    let ci2 = 0;
+    const typeChar = ()=>{
+      ci2++;
+      cmdSpan.textContent = full.slice(0,ci2);
+      termBody.scrollTop = termBody.scrollHeight;
+      if(ci2 < full.length){ setTimeout(typeChar, 38); }
+      else { lineIdx++; setTimeout(typeTerminal, 280); }
+    };
+    typeChar();
+  } else {
+    const outSpan = document.createElement('span');
+    outSpan.className = item.ok ? 'ok' : 'out';
+    outSpan.textContent = item.out;
+    lineEl.appendChild(outSpan);
+    termBody.scrollTop = termBody.scrollHeight;
+    lineIdx++;
+    setTimeout(typeTerminal, 320);
+  }
+}
+setTimeout(typeTerminal, 900);
+
+/* ===== COUNTER ANIMATIONS ===== */
+function animateCounters(container){
+  container.querySelectorAll('[data-count]').forEach(el=>{
+    if(el.dataset.done) return;
+    const target = parseInt(el.dataset.count,10);
+    let cur = 0;
+    const step = Math.max(1, Math.ceil(target/40));
+    const tick = ()=>{
+      cur += step;
+      if(cur >= target){ el.textContent = target; el.dataset.done = '1'; return; }
+      el.textContent = cur;
+      requestAnimationFrame(()=>setTimeout(tick, 16));
+    };
+    tick();
+  });
+}
+
+/* ===== SKILL BARS ===== */
+function animateSkillBars(container){
+  container.querySelectorAll('.skill-bar').forEach(bar=>{
+    if(bar.dataset.done) return;
+    bar.style.width = bar.dataset.level + '%';
+    bar.dataset.done = '1';
+  });
+}
+
+/* ===== REVEAL ON SCROLL (IntersectionObserver) ===== */
+const revealEls = document.querySelectorAll('.reveal:not(.in)');
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('in');
+      animateCounters(entry.target);
+      animateSkillBars(entry.target);
+      io.unobserve(entry.target);
+    }
+  });
+}, {threshold:0.15});
+revealEls.forEach(el=> io.observe(el));
+
+/* Run once for sections already containing counters/skills not wrapped directly */
+document.querySelectorAll('section').forEach(sec=>{
+  const secIO = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        animateCounters(entry.target);
+        animateSkillBars(entry.target);
+        secIO.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.2});
+  secIO.observe(sec);
+});
+
+/* ===== 3D TILT ON PROJECT CARDS ===== */
+document.querySelectorAll('[data-tilt]').forEach(card=>{
+  card.addEventListener('mousemove', (e)=>{
+    const r = card.getBoundingClientRect();
+    const x = e.clientX - r.left, y = e.clientY - r.top;
+    const rotX = ((y / r.height) - 0.5) * -8;
+    const rotY = ((x / r.width) - 0.5) * 8;
+    card.style.transform = `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-4px)`;
+  });
+  card.addEventListener('mouseleave', ()=>{ card.style.transform = ''; });
+});
+
+/* ===== MAGNETIC + RIPPLE BUTTONS ===== */
+document.querySelectorAll('[data-ripple]').forEach(btn=>{
+  btn.addEventListener('mousemove', (e)=>{
+    const r = btn.getBoundingClientRect();
+    const x = e.clientX - r.left - r.width/2, y = e.clientY - r.top - r.height/2;
+    btn.style.transform = `translate(${x*0.12}px, ${y*0.25}px)`;
+  });
+  btn.addEventListener('mouseleave', ()=>{ btn.style.transform=''; });
+  btn.addEventListener('click', (e)=>{
+    const r = btn.getBoundingClientRect();
+    const ripple = document.createElement('span');
+    ripple.className = 'ripple';
+    const size = Math.max(r.width, r.height);
+    ripple.style.width = ripple.style.height = size+'px';
+    ripple.style.left = (e.clientX - r.left - size/2)+'px';
+    ripple.style.top = (e.clientY - r.top - size/2)+'px';
+    btn.appendChild(ripple);
+    setTimeout(()=> ripple.remove(), 650);
+  });
+});
+
+/* ===== GITHUB CONTRIBUTION GRID (DECORATIVE) ===== */
+const contribGrid = document.getElementById('contribGrid');
+for(let i=0;i<26*7;i++){
+  const cell = document.createElement('div');
+  const r = Math.random();
+  if(r > 0.85) cell.style.background = 'var(--cyan)';
+  else if(r > 0.7) cell.style.background = 'rgba(56,189,248,0.55)';
+  else if(r > 0.5) cell.style.background = 'rgba(56,189,248,0.25)';
+  contribGrid.appendChild(cell);
+}
+
+/* ===== CONTACT FORM VALIDATION ===== */
+const form = document.getElementById('contactForm');
+const status = document.getElementById('formStatus');
+form.addEventListener('submit', (e)=>{
+  e.preventDefault();
+  let valid = true;
+  const fields = {
+    name: form.querySelector('[name=name]'),
+    email: form.querySelector('[name=email]'),
+    subject: form.querySelector('[name=subject]'),
+    message: form.querySelector('[name=message]')
+  };
+  document.getElementById('f-name').classList.toggle('invalid', !fields.name.value.trim());
+  if(!fields.name.value.trim()) valid = false;
+
+  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.email.value.trim());
+  document.getElementById('f-email').classList.toggle('invalid', !emailOk);
+  if(!emailOk) valid = false;
+
+  document.getElementById('f-subject').classList.toggle('invalid', !fields.subject.value.trim());
+  if(!fields.subject.value.trim()) valid = false;
+
+  document.getElementById('f-message').classList.toggle('invalid', !fields.message.value.trim());
+  if(!fields.message.value.trim()) valid = false;
+
+  if(!valid){
+    status.textContent = 'Please fix the highlighted fields.';
+    status.classList.remove('success');
+    return;
+  }
+
+  status.textContent = 'Sending...';
+  setTimeout(()=>{
+    status.textContent = 'Message sent! I\'ll get back to you soon — thank you for reaching out.';
+    status.classList.add('success');
+    form.reset();
+  }, 900);
+});
+
+/* ===== RESUME BUTTON PLACEHOLDER ===== */
+[document.getElementById('resumeBtn'), document.getElementById('resumeBtn2')].forEach(b=>{
+  b.addEventListener('click', (e)=>{
+    e.preventDefault();
+    alert('Resume placeholder — replace this link with your actual resume PDF file path.');
+  });
+});
+</script>
+</body>
+</html>
